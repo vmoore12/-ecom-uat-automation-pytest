@@ -1,6 +1,6 @@
 import pytest
-from ecom_uat_automation_pytest.src.pages.HomePage import HomePage
-from ecom_uat_automation_pytest.src.selenium_extended import SeleniumExtended
+from src.pages.HomePage import HomePage
+from src.selenium_extended import SeleniumExtended
 
 
 
@@ -25,13 +25,12 @@ class TestBannerDisplayes:
     @pytest.mark.tcid4
     def test_verify_home_heading_is_displayed(self):
 
-
         header_text = 'Shop'
         home_page = HomePage(self.driver)
         home_page.go_to_home_page()
         home_page.get_shop_heading()
         header = home_page.get_shop_heading().text
-        assert header == header_text, f'This is not a match! {header_text}'
+        assert header == header_text, f'This is not a match! {header}. Expecting{header_text}.'
         return header
 
         #NOTE: Why can't i see a return or print a statement here? for example if I do header = home_page.get_shop_heading() \
