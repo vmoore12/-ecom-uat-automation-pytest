@@ -1,10 +1,10 @@
 
 
 import pytest
-from ecom_uat_automation_pytest.src.pages.MyAccountSignedOutPage import MyAccountSignedOutPage
-from ecom_uat_automation_pytest.src.pages.MyAccountSignedInPage import MyAccountSignedInPage
+from src.pages.MyAccountSignedOutPage import MyAccountSignedOutPage
+from src.pages.MyAccountSignedInPage import MyAccountSignedInPage
 # from pioneers_store.src.untilities import genericUtilities
-from ecom_uat_automation_pytest.src.untilities.genericUtilities import generate_random_email_and_password
+from src.utilities.genericUtilities import generate_random_email_and_password
 
 
 pytestmark = [pytest.mark.feregression, pytest.mark.fesmoke, pytest.mark.my_account]
