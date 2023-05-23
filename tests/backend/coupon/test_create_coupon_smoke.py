@@ -9,9 +9,9 @@ def test_create_27_0ff_coupon_code():
     woo_helper = WooAPIUtility()
 
     payload={
-        "code": "27off",
+        "code": "24off",
         "discount_type": "percent",
-        "amount": "25"
+        "amount": "21.00"
     }
     breakpoint()
 
@@ -20,7 +20,6 @@ def test_create_27_0ff_coupon_code():
 
     #verify coupon code is created
 
-    assert rs_body.status_code == 201,f"Expected status code 201. Actual: {rs_body.status_code}"
-
-    assert rs_body.json['code'] == "25off", f" The wrong  code name was given. Actual: {rs_body.json['code']}"
+    assert rs_body['code'] == "24off", f" The wrong  code name was given. Actual: {rs_body['code']}"
+    assert rs_body['amount'] =='21.00', f"The wrong amount value was given. Actual: {rs_body['amount']}"
 

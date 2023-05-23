@@ -1,6 +1,7 @@
 import logging as logger
 import pytest
 import os
+import json
 from ecom_uat_automation_pytest.src.utilities.genericUtilities import generate_random_email_and_password
 from ecom_uat_automation_pytest.src.utilities.wooAPIUtility import WooAPIUtility
 from ecom_uat_automation_pytest.src.dao.customers_dao import CustomersDAO
@@ -89,3 +90,37 @@ def test_create_customer_fail_for_existing_email():
     
     assert 'An account is already registered with your email address.' in rs_body['message'], f"Create customer with " \
                                     f"existing user. Response body 'message' did not contain expected text."
+
+
+
+
+@pytest.mark.pioneertcid14
+def test_create_customer_fail_when_no_password_is_provided():
+    #get random email
+    random_info = generate_random_email_and_password()
+
+    payload = {"email": random_info['email']}
+
+    # make create customer api call without including password in the payload
+
+    woo_api_utility = WooAPIUtility()
+    rs_api = woo_api_utility.post(wc_endpoint="customers", params=payload, expected_status_code=400)
+    assert rs_api['code'] == 'rest_missing_callback_param', f"The code field in response is not as expected. Expected 'rest_missing_callback_param' Actual: {rs_api['code']}"
+    assert rs_api['message'] == 'Missing parameter(s): password', f" The message in response is not as expected. Expected 'Missing parameter(s): password', Actual: {rs_api['message']}"
+    assert rs_api['data']['status'] == 400
+
+@pytest.mark.tcid45
+@pytest.mark.pioneertcid16
+def test_create_customer_veriy_name_is_empty_string():
+
+    
+    # create random customer username and password
+    random_customer = generate_random_email_and_password()
+    woo_helper = WooAPIUtility()
+    #make the api call to create customer
+    rs_body = woo_helper.post(wc_endpoint="customers", params=random_customer, expected_status_code=201)
+    #verify the api response name field is empty
+    assert rs_body['first_name'] == "", f"The first name field in the response body should be empty. Actual: {rs_body['first_name']}"
+    assert rs_body['last_name'] == "", f"The last name field in the response body should be empty. Actual: {rs_body['first_name']}"
+    assert rs_body['email'] == random_customer['email'], f"The email field in the response body should be {random_customer['email']}. Actual: {rs_body['email']}"
+

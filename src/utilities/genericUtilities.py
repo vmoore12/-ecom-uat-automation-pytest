@@ -12,7 +12,7 @@ import logging as logger
 
 
 
-def generate_random_email_and_password(domain='supersqa.com', email_prefix='testuser', elegnth= 10):
+def generate_random_email_and_password(domain='supersqa.com', email_prefix='testuser', elegnth= 15):
     """
     Generates a random email and password combination.
     :param domain:
@@ -20,7 +20,7 @@ def generate_random_email_and_password(domain='supersqa.com', email_prefix='test
     :return: dictionary. A dictionary with keys 'email' & 'password'
     """
 
-    random_string = ''.join(random.choices(string.ascii_lowercase))
+    random_string = ''.join(random.choices(string.ascii_lowercase, k=int(elegnth)))
     # email = email_prefix + '_' + random_string + '@' + domain
     email = f'{email_prefix}_{random_string}@{domain}'
 
