@@ -124,3 +124,23 @@ def test_create_customer_veriy_name_is_empty_string():
     assert rs_body['last_name'] == "", f"The last name field in the response body should be empty. Actual: {rs_body['first_name']}"
     assert rs_body['email'] == random_customer['email'], f"The email field in the response body should be {random_customer['email']}. Actual: {rs_body['email']}"
 
+
+
+
+
+
+@pytest.mark.tcid46
+@pytest.mark.pioneertcid17
+def test_username_autogenrated_by_based_on_email():
+
+    # create customer email
+    email_password = generate_random_email_and_password()
+    woo_helper = WooAPIUtility()
+     
+
+    # make the api call to create customer
+    rs_body = woo_helper.post("customers", params=email_password, expected_status_code=201)
+    # verify username is generated correctly
+    except_username = email_password['email'].split('@')[0]
+    assert rs_body['username'] == except_username, f"The username field in the response body should be auto-generated to be {except_username}. Actual: {rs_body}"
+
