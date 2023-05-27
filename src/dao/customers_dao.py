@@ -24,4 +24,12 @@ class CustomersDAO:
         rs_sql = self.db_helper.execute_select(sql) # gets a list of random customers from the database
         
         return random.sample(rs_sql, int(qty)) # selects and returns a random customer email from the db
+    def get_all_customers_from_db(self):
+        sql= f"""SELECT * FROM quicksitedb.wp_users;"""
+
+        rs_sql = self.db_helper.execute_select(sql)
+
+        return rs_sql
+    
+
     

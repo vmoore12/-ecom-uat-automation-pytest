@@ -136,11 +136,25 @@ def test_username_autogenrated_by_based_on_email():
     # create customer email
     email_password = generate_random_email_and_password()
     woo_helper = WooAPIUtility()
-     
-
     # make the api call to create customer
     rs_body = woo_helper.post("customers", params=email_password, expected_status_code=201)
     # verify username is generated correctly
     except_username = email_password['email'].split('@')[0]
     assert rs_body['username'] == except_username, f"The username field in the response body should be auto-generated to be {except_username}. Actual: {rs_body}"
+
+@pytest.mark.tcid30
+@pytest.mark.pioneertcid18
+def test_get_customers_lists_all_users():
+    # figure out how many users are in the database
+    customers = CustomersDAO()
+    customer_list = customers.get_all_customers_from_db()
+    print(len(customer_list))
+
+    count = 0
+    for i in customer_list:
+        count += 1 
+
+    #verify that all users are in the database are listed
+    assert len(customer_list) == count, f"The number of users in the databse is not accurate. The current count liste i {count}. What should be listed is"\
+    f"{len(customer_list)}."
 

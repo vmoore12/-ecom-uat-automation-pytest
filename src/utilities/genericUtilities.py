@@ -33,5 +33,16 @@ def generate_random_email_and_password(domain='supersqa.com', email_prefix='test
     return random_info
 
 
+def generate_random_string():
+     random_string = ''.join(random.choices(string.ascii_lowercase, k=int(10)))
+
+     return random_string
+
+def generate_random_float():
+    random_float = round(random.uniform(10.00, 24.99), 2)
+    rand_num = str(random_float)
+    return rand_num
+
+
 if __name__ == '__main__':
     print(generate_random_email_and_password())
