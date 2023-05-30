@@ -6,3 +6,5 @@ class HomePageLocators:
     FREE_SHIPPING_BANNER = (By.CSS_SELECTOR, 'td div.wpfront-message.wpfront-div strong')
     SHOP_HEADING = (By.CSS_SELECTOR, 'div.content-area header.woocommerce-products-header h1')
     ALL_PRODUCTS_NAMES = (By.CSS_SELECTOR, '.products li.type-product .woocommerce-loop-product__title')
+
+    ON_SALE_ITEM_TEXT = (By.CSS_SELECTOR, 'ul.products li.product_cat-accessories span.onsale')

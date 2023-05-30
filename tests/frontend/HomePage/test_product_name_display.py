@@ -17,3 +17,10 @@ class TestProductName:
       names = i.text
     print(len(names))
     assert isinstance(names, str), f'this not a string. It is {type(names)}.'
+
+  @pytest.mark.tcid106
+  def test_product_onsale_is_displayed(self):
+    home_page = HomePage(self.driver)
+    home_page.go_to_home_page()
+    sale_products = home_page.get_onsale_item_text()
+    assert sale_products == 'SALE!', f"the products selected does not show that its on sale. It shows {sale_products} instead of 'SALE!'"

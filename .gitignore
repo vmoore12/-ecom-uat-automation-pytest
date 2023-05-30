@@ -1,0 +1,24 @@
+
+#credential stuff
+
+.env
+
+
+/archive
+
+*.pyc 
+
+*.html
+
+
+*.log
+
+Dockerfile
+
+*/__pycache__/
+
+.cpython-310.pyc
+
+
+
+

@@ -26,3 +26,6 @@ class HomePage(HomePageLocators):
     def get_all_products_name(self):
         return self.sl.wait_and_get_elements(self.ALL_PRODUCTS_NAMES)
 
+    def get_onsale_item_text(self):
+        return self.sl.wait_and_get_text(self.ON_SALE_ITEM_TEXT)
+    
