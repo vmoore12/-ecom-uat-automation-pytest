@@ -1,0 +1,21 @@
+
+#credential stuff
+
+.env
+
+
+/archive
+
+*.pyc 
+
+*.html
+
+
+*.log
+
+*/__pychache__
+
+*/archive
+
+
+
