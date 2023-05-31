@@ -1,16 +1,15 @@
 stages:
- - build
- - regression_BE
+  - build
+  - regression_BE
 
-
- run_automation:
+run_automation:
   stage: build
   script:
      - echo "Building the code..."
   
 regression_BE:
   stage: regression_BE
-  srcipt:
+  script:
     - echo "Running tests..."
 
 
