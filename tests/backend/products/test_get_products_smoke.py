@@ -38,7 +38,7 @@ def test_get_product_by_id():
 
 
 
-@pytest.mark.tcid31
+@pytest.mark.tcid26
 @pytest.mark.pioneertcid19
 def test_create_simple_product():
     #create product payload
@@ -58,6 +58,23 @@ def test_create_simple_product():
     assert rs_api['regular_price'] == payload['regular_price'],f"Regular price was entered incorrectly. It should be {payload['regular_price']}."
     assert rs_api['type'] == "simple",f"Product type was entered incorrectly. It should be {payload['type']} but is {rs_api['type']}."
     logger.info(f"Test product name: {rs_api}")
+
+
+@pytest.mark.tcid51
+def test_list_products_with_after_filter():
+    woo_api_helper = WooAPIUtility()
+    payload = {
+        "after": "2023-03-12T17:00:00",
+        "per_page":"20"
+    }
+
+    rs_api = woo_api_helper.get("products", params=payload,expected_status_code=200)
+    data = []
+    for i in rs_api:
+        data.append(i['date_created'].strip(''))
+    for date in data: 
+        assert date >=payload['after'],f"The date created dose not fall into the 'after' filter rang. It should be equal to or after {payload['after']}, but result was {date}."
+
 
 
 
