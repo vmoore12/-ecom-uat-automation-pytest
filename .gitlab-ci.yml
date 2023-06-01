@@ -11,6 +11,6 @@ stages:
 regression_BE:
   stage: regression_BE
   srcipt:
-    - echo "Running tests..."
+    - echo "Running tests...  "
 
 
