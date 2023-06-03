@@ -5,11 +5,11 @@ stages:
 run_automation:
   stage: build
   script:
-     - echo "Building the code..."
+    - echo "Building the code..."
   
 regression_BE:
   stage: regression_BE
   script:
-      - echo "Running tests...  "
+    - echo "Running tests...  "
 
 
