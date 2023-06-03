@@ -2,6 +2,7 @@ import pytest
 from src.pages.HomePage import HomePage
 from src.selenium_extended import SeleniumExtended
 
+pytestmark = [pytest.mark.feregression, pytest.mark.fesmoke, pytest.mark.HomePage]
 
 
 @pytest.mark.pioneertcid3

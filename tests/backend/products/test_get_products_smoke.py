@@ -73,9 +73,25 @@ def test_list_products_with_after_filter():
     for i in rs_api:
         data.append(i['date_created'].strip(''))
     for date in data: 
-        assert date >=payload['after'],f"The date created dose not fall into the 'after' filter rang. It should be equal to or after {payload['after']}, but result was {date}."
+        assert date >=payload['after'],f"The date created dose not fall into the 'after' filter range. It should be equal to or after {payload['after']}, but result was {date}."
 
 
 
+@pytest.mark.tcid61
+def test_update_regular_price():
+    # connect to the database with credentials
+    woo_api_helper = WooAPIUtility()
+    # get random product from db
+    prod_doa = ProductsDAO()
+    rand_product = prod_doa.get_random_product_from_db()
+    # extract the random 
+    product_id = rand_product[0]['ID']
+    # breakpoint()
+    payload = {
+        "regular_price": "24.99"
+    }
+    rs_api = woo_api_helper.put(f"products/{product_id}", params=payload,expected_status_code=200)
+
+    assert rs_api['regular_price'] == payload['regular_price'], F'The regular price filter did not update the regular price given to the payload.'
 
 
