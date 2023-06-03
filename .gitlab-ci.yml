@@ -10,6 +10,6 @@ run_automation:
 regression_BE:
   stage: regression_BE
   script:
-    - echo "Running tests...  "
+      - echo "Running tests...  "
 
 
