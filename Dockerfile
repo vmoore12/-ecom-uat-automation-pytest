@@ -8,7 +8,7 @@ WORKDIR /automation/ecom_uat_automation_pytest
 # Do not know where the folowing is from
 
 RUN ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime 
-RUN echo "America/Los_Angeles" > /etc/timezone
+RUN echo "America/Chicago" > /etc/timezone
 
 # RUN mkdir /automation
 
