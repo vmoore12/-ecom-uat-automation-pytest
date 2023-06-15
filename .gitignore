@@ -1,7 +1,7 @@
 
 #credential stuff
 
-.env
+*.env
 
 
 /archive
@@ -9,7 +9,7 @@
 *.pyc 
 
 *.html
-
+pytest_html_report.html
 
 *.log
 
@@ -17,5 +17,6 @@
 
 */archive
 
+*output.json
 
 
