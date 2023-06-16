@@ -1,15 +1,12 @@
 stages:
-  - build
   - regression_BE
 
-run_automation:
-  stage: build
-  script:
-    - echo "Building the code..."
-  
 regression_BE:
   stage: regression_BE
+  image: python:3.10
+  before_script:
+    -pip3 install -r ./requirements.txt
   script:
   - echo "Running tests...  "
-
+  - python3 -m pytest -m tcid61
 
