@@ -1,9 +1,9 @@
 
 #credential stuff
 
-*.env
+/variable.env
 
-
+*__init__.py
 /archive
 
 *.pyc 
@@ -18,5 +18,13 @@ pytest_html_report.html
 */archive
 
 *output.json
+
+.vscode
+
+.archive
+
+*.pytest_cache
+
+*.DS_Store
 
 

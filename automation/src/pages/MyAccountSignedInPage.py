@@ -1,6 +1,6 @@
 
-from  automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
-from  automation.src.pages.locators.MyAccountSignedInPageLocators import MyAccountSignedInPageLocators
+from ecom_uat_automation_pytest.automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
+from ecom_uat_automation_pytest.automation.src.pages.locators.MyAccountSignedInPageLocators import MyAccountSignedInPageLocators
 
 
 class MyAccountSignedInPage(MyAccountSignedInPageLocators):

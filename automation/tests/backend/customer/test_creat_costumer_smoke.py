@@ -2,11 +2,9 @@ import logging as logger
 import pytest
 import os
 import json
-from automation.src.utilities.genericUtilities import generate_random_email_and_password
-from  automation.src.utilities.wooAPIUtility import WooAPIUtility
-from  automation.src.dao.customers_dao import CustomersDAO
-
-
+from ecom_uat_automation_pytest.automation.src.utilities.genericUtilities import generate_random_email_and_password
+from ecom_uat_automation_pytest.automation.src.utilities.wooAPIUtility import WooAPIUtility
+from ecom_uat_automation_pytest.automation.src.dao.customers_dao import CustomersDAO
 
 pytestmark = [pytest.mark.beregression, pytest.mark.smoke,pytest.mark.customers_api,] # when we have multiple test cases that are the sme type so we want to run he same marks so we mark them like this. 
 
@@ -57,7 +55,6 @@ def test_create_customer_fail_for_existing_email():
     # get random existing customer(from api or db) - in this example we get from the db
     cust_dao = CustomersDAO() # imported the class and put it in a variable (cust_dao)
     rand_cust = cust_dao.get_random_customer_from_db() # used the function from the class we need and set in a variable(rand_cust). If its not there then w have to create a new function to do what we need.
-    # breakpoint()
     rand_email = rand_cust[0]['user_email'] # since rand_cust is a list with 1 dict inside  we get the first dict in the list[0], and the "value" 'user_email' of the dict.
     logger.debug(f'Random email for the test: {rand_email}')
 
@@ -72,7 +69,7 @@ def test_create_customer_fail_for_existing_email():
         "password": random_password
     }
     rs_body = woo_helper.post("customers", params=payload, expected_status_code=400)
-    breakpoint()
+
 
 
     # verify the api response is a failure 

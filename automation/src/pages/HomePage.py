@@ -1,7 +1,7 @@
 
-from  automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
-from  automation.src.configs.MainConfigs import MainConfigs
-from  automation.src.pages.locators.HomePageLocators import HomePageLocators
+from src.selenium_extended.SeleniumExtended import SeleniumExtended
+from src.configs.MainConfigs import MainConfigs
+from src.pages.locators.HomePageLocators import HomePageLocators
 
 class HomePage(HomePageLocators):
 

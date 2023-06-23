@@ -1,9 +1,15 @@
 
 import pytest
-from  automation.src.dao.product_dao import ProductsDAO
-from  automation.src.api_helpers.ProductsAPIHelper import ProductsAPIHelper
-from  automation.src.utilities.wooAPIUtility import WooAPIUtility
-from  automation.src.utilities.genericUtilities import generate_random_string, generate_random_float
+import random
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+
+
+from ecom_uat_automation_pytest.automation.src.dao.product_dao import ProductsDAO
+from ecom_uat_automation_pytest.automation.src.api_helpers.ProductsAPIHelper import ProductsAPIHelper
+from ecom_uat_automation_pytest.automation.src.utilities.wooAPIUtility import WooAPIUtility
+from ecom_uat_automation_pytest.automation.src.utilities.genericUtilities import generate_random_string, generate_random_float
 import logging as logger
 
 pytestmark = [pytest.mark.beregression, pytest.mark.besmoke, pytest.mark.products_api]
@@ -62,12 +68,17 @@ def test_create_simple_product():
 @pytest.mark.tcid51
 def test_list_products_with_after_filter():
     woo_api_helper = WooAPIUtility()
+    # get current date
+    current_date = datetime.now()
+
+    # subtract 1 month from current date
+    new_date = str(current_date - relativedelta(months=1))
     payload = {
-        "after": "2023-03-12T17:00:00",
-        "per_page":"20"
+        "after": new_date,
+        "per_page":"100"
     }
 
-    rs_api = woo_api_helper.get("products", params=payload,expected_status_code=200)
+    rs_api = woo_api_helper.get("products", params=payload)
     data = []
     for i in rs_api:
         data.append(i['date_created'].strip(''))
@@ -85,8 +96,9 @@ def test_update_regular_price():
     rand_product = prod_doa.get_random_product_from_db()
     # extract the random 
     product_id = rand_product[0]['ID']
+    updated_price = str(random.randint(10, 100)) + '.' + str(random.randint(10, 99))
     payload = {
-        "regular_price": "24.99"
+        "regular_price": updated_price
     }
     rs_api = woo_api_helper.put(f"products/{product_id}", params=payload,expected_status_code=200)
 
