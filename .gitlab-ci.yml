@@ -1,15 +1,15 @@
 stages:
-  - build
   - regression_BE
 
-run_automation:
-  stage: build
-  script:
-     - echo "Building the code..."
-  
 regression_BE:
   stage: regression_BE
-  srcipt:
-    - echo "Running tests...  "
-
+  image: python:3.10
+  before_script:
+    - apt-get update && pip install -r ./requirements.txt
+    - source ./gl_variables.sh
+    - $WOO_KEY $WOO_SECRET
+    
+  script:
+  - echo "Running tests....  "
+  - python -m pytest -m tcid61 -s
 
