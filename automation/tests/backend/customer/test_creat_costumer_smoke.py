@@ -2,11 +2,9 @@ import logging as logger
 import pytest
 import os
 import json
-from automation.src.utilities.genericUtilities import generate_random_email_and_password
-from  automation.src.utilities.wooAPIUtility import WooAPIUtility
-from  automation.src.dao.customers_dao import CustomersDAO
-
-
+from ecom_uat_automation_pytest.automation.src.utilities.genericUtilities import generate_random_email_and_password
+from ecom_uat_automation_pytest.automation.src.utilities.wooAPIUtility import WooAPIUtility
+from ecom_uat_automation_pytest.automation.src.dao.customers_dao import CustomersDAO
 
 pytestmark = [pytest.mark.beregression, pytest.mark.smoke,pytest.mark.customers_api,] # when we have multiple test cases that are the sme type so we want to run he same marks so we mark them like this. 
 

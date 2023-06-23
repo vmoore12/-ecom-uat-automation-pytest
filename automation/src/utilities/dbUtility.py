@@ -1,8 +1,8 @@
 import pymysql
 import os
 import logging as logger
-from  automation.src.utilities.credentialsUtility import CredentialsUtility
-from  automation.src.configs.MainConfigs import MainConfigs
+from  ecom_uat_automation_pytest.automation.src.utilities.credentialsUtility import CredentialsUtility
+from ecom_uat_automation_pytest.automation.src.configs.MainConfigs import MainConfigs
 
 class DBUtility(object):
 

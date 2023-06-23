@@ -1,7 +1,7 @@
 
 #credential stuff
 
-*.env
+/variable.env
 
 *__init__.py
 /archive

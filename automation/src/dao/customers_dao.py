@@ -1,5 +1,5 @@
 
-from  automation.src.utilities.dbUtility import DBUtility
+from  ecom_uat_automation_pytest.automation.src.utilities.dbUtility import DBUtility
 import random
 
 class CustomersDAO:

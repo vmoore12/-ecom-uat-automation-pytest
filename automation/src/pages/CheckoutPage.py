@@ -1,8 +1,8 @@
 
-from automation.src.pages.locators.CheckoutPageLocators import CheckoutPageLocators
+from ecom_uat_automation_pytest.automation.src.pages.locators.CheckoutPageLocators import CheckoutPageLocators
 
-from automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
-from automation.src.utilities.genericUtilities import generate_random_email_and_password
+from ecom_uat_automation_pytest.automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
+from ecom_uat_automation_pytest.automation.src.utilities.genericUtilities import generate_random_email_and_password
 
 
 class CheckoutPage(CheckoutPageLocators):

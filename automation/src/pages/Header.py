@@ -1,7 +1,7 @@
 
 
-from  automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
-from  automation.src.pages.locators.HeaderLocators import HeaderLocators
+from ecom_uat_automation_pytest.automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
+from ecom_uat_automation_pytest.automation.src.pages.locators.HeaderLocators import HeaderLocators
 
 class Header(HeaderLocators):
 

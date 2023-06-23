@@ -1,12 +1,12 @@
 
 import pytest
 
-from  automation.src.pages.HomePage import HomePage
-from  automation.src.pages.CartPage import CartPage
-from  automation.src.pages.Header import Header
-from  automation.src.pages.CheckoutPage import CheckoutPage
-from  automation.src.pages.OrderReceivedPage import OrderReceivedPage
-from  automation.src.configs.MainConfigs import MainConfigs
+from ecom_uat_automation_pytest.automation.src.pages.HomePage import HomePage
+from ecom_uat_automation_pytest.automation.src.pages.CartPage import CartPage
+from ecom_uat_automation_pytest.automation.src.pages.Header import Header
+from ecom_uat_automation_pytest.automation.src.pages.CheckoutPage import CheckoutPage
+from ecom_uat_automation_pytest.automation.src.pages.OrderReceivedPage import OrderReceivedPage
+from ecom_uat_automation_pytest.automation.src.configs.MainConfigs import MainConfigs
 
 @pytest.mark.usefixtures("init_driver")
 class TestEndToEndCheckoutGuestUser:
