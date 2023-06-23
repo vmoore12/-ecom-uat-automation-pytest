@@ -7,7 +7,7 @@ regression_BE:
   before_script:
     - apt-get update && pip install -r ./requirements.txt
     - source ./gl_variables.sh
-    -  source $API_KEY $API_SECRET
+    
     
   script:
   - echo "Running tests....  "
