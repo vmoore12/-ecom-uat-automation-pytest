@@ -27,16 +27,16 @@ class ProductsDAO:
 
         return random.sample(rs_sql, int(qty))
 
-    def get_random_onsale_product_from_db(self, qty=1):
+    def get_random_onsale_product_from_db(self, qty=3):
         """
-        Gets a random product onsale from db.
+        Gets a random product that is onsale from db.
         :param qty: number of products to get
         :return:
         """
 
         logger.info(f"Getting random products from db. qty= {qty}")
         sql = f"""SELECT product_id, onsale FROM {self.database}.{self.table_prefix}wc_product_meta_lookup
-        WHERE onsale = 'true' LIMIT 100;"""
+        WHERE onsale = 1 LIMIT 100;"""
 
         rs_sql = self.db_helper.execute_select(sql)
 

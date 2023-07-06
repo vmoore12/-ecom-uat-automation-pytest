@@ -22,7 +22,6 @@ def test_get_all_products_returns_not_empty():
 @pytest.mark.tcid25
 @pytest.mark.pioneertcid14
 def test_get_product_by_id():
-
     # get product that exists from db (also could have gotten it from api (list-products))
     product_dao = ProductsDAO()
     rand_product = product_dao.get_random_product_from_db()
@@ -44,6 +43,7 @@ def test_get_product_by_id():
 @pytest.mark.tcid26
 @pytest.mark.pioneertcid19
 def test_create_simple_product():
+
     #create product payload
     woo_api_helper = WooAPIUtility()
     rand_string = generate_random_string()
@@ -114,9 +114,8 @@ def test_update_sales_price():
     
     rs_api = woo_api_helper.put(f"products/{product_id}", params= payload)
 
-    assert rs_api['on_sale'] == True,f'The sales price filter did not update on_sale given to the payload. '
+    assert rs_api['on_sale'] == True,f'The "on_sale" property did not update after updating the "sale_price" property of a product. It should have been updated to {updated_price}.'
     # assert updated_price < rs_api['price'], f'The onsale price is more than the regular price. On_sale price is set to {rs_api["on_sale"]} and the regular price is {rs_api["price"]}.'
-
 
 @pytest.mark.tcid64
 def test_set_onsale_price_to_false():
@@ -130,4 +129,20 @@ def test_set_onsale_price_to_false():
 
     rs_api = woo_api_helper.put(f'products/{product_id}', params= payload)
     assert rs_api['on_sale'] == False,f'The sales price filter did not updated onsale to false. onsale is actually {rs_api["onsale"]}.'
+
+@pytest.mark.tcid65
+def test_update_sale_price():
+    woo_api_helper = WooAPIUtility()
+    prod_doa = ProductsDAO()
+    onsale_products = prod_doa.get_random_onsale_product_from_db()
+    product_id = onsale_products[0]['product_id']
+    sale_price_item = woo_api_helper.get(f'products/{product_id}')
+    new_sale_price = float(sale_price_item['sale_price']) - 1.99
+    payload ={
+        "sale_price": f'{new_sale_price}'
+    }
+    rs_api = woo_api_helper.put(f'products/{product_id}', params=payload)
+    assert rs_api['id'] == product_id, f'Product with ID {product_id} did not match the requested rs_api{rs_api["id"]}.'
+    assert payload['sale_price'] != sale_price_item['sale_price'],f'Update fitler did not work. sale price should have updated to {new_sale_price}, It has instead{rs_api["sale_price"]}.'
+
 
