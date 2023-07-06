@@ -26,3 +26,5 @@ class HomePage(HomePageLocators):
     def get_all_products_name(self):
         return self.sl.wait_and_get_elements(self.ALL_PRODUCTS_NAMES)
 
+    def get_header_menu(self):
+        return self.sl.wait_until_element_is_visible(self.HEADER_MENU)

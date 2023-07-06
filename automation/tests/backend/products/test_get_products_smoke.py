@@ -3,9 +3,6 @@ import pytest
 import random
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-
-
-
 from ecom_uat_automation_pytest.automation.src.dao.product_dao import ProductsDAO
 from ecom_uat_automation_pytest.automation.src.api_helpers.ProductsAPIHelper import ProductsAPIHelper
 from ecom_uat_automation_pytest.automation.src.utilities.wooAPIUtility import WooAPIUtility
@@ -89,7 +86,7 @@ def test_list_products_with_after_filter():
 
 @pytest.mark.tcid61
 def test_update_regular_price():
-    # connect to the database with credentials
+    # Database helper object:
     woo_api_helper = WooAPIUtility()
     # get random product from db
     prod_doa = ProductsDAO()
@@ -104,4 +101,33 @@ def test_update_regular_price():
 
     assert rs_api['regular_price'] == payload['regular_price'], F'The regular price filter did not update the regular price given to the payload.'
 
+@pytest.mark.tcid63
+def test_update_sales_price():
+    woo_api_helper = WooAPIUtility()
+    prod_doa = ProductsDAO()
+    rand_products = prod_doa.get_random_product_from_db()
+    product_id = rand_products[0]['ID']
+    updated_price = str(random.randint(1, 20)) + '.' + str(random.randint(10, 99))
+    payload = {
+        "sale_price": updated_price
+    }
+    
+    rs_api = woo_api_helper.put(f"products/{product_id}", params= payload)
+
+    assert rs_api['on_sale'] == True,f'The sales price filter did not update on_sale given to the payload. '
+    # assert updated_price < rs_api['price'], f'The onsale price is more than the regular price. On_sale price is set to {rs_api["on_sale"]} and the regular price is {rs_api["price"]}.'
+
+
+@pytest.mark.tcid64
+def test_set_onsale_price_to_false():
+    woo_api_helper = WooAPIUtility()
+    prod_doa = ProductsDAO()
+    onsale_products = prod_doa.get_random_onsale_product_from_db()
+    product_id = onsale_products[0]['product_id']
+    payload = {
+        "sale_price": " "
+    }
+
+    rs_api = woo_api_helper.put(f'products/{product_id}', params= payload)
+    assert rs_api['on_sale'] == False,f'The sales price filter did not updated onsale to false. onsale is actually {rs_api["onsale"]}.'
 
