@@ -1,6 +1,9 @@
+export BASE_URL=http://bootcamp.store.supersqa.com
 export DB_USER=vickie
 export DB_PASSWORD=AutomationIsGreat
 export DB_PORT_OVERRIDE=3309
 export DB_HOST_OVERRIDE=bootcamp.store.supersqa.com
 export DB_DATABASE_OVERRIDE=bootcampstore
 export DB_TABLE_PREFIX_OVERRIDE=wp_
+export API_KEY=ck_3fc0986ec705710d783465ea9fec19af7368d743
+export API_SECRET=cs_5549e194739f175662c41344e06613c7aa57b5ea

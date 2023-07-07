@@ -7,9 +7,11 @@ regression_BE:
   before_script:
     - apt-get update && pip install -r ./requirements.txt
     - source ./gl_variables.sh
-    - $WOO_KEY $WOO_SECRET
+    - cd automation/
+    
     
   script:
   - echo "Running tests....  "
-  - python -m pytest -m tcid61 -s
+  - env
+  - python3 -m pytest -m beregression -s
 
