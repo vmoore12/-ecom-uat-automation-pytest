@@ -1,8 +1,7 @@
 stages:
   - regression_BE
   - regression_FE
-
-  variables:
+variables:
     CHROME_REMOTE_WEBDRIVER_URL: http://chrome_remote_browser:4444/wd/hub
     FIREFOX_REMOTE_WEBDRIVER_URL: http://firefox_remote_browser:4444/wd/hub
     EDGE_REMOTE_WEBDRIVER_URL: http://edge_remote_browser:4444/wd/hub
