@@ -12,5 +12,6 @@ regression_BE:
     
   script:
   - echo "Running tests....  "
+  - env
   - python3 -m pytest -m beregression -s
 
