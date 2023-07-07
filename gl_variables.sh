@@ -1,3 +1,4 @@
+export BASE_URL=http://bootcamp.store.supersqa.com
 export DB_USER=vickie
 export DB_PASSWORD=AutomationIsGreat
 export DB_PORT_OVERRIDE=3309
