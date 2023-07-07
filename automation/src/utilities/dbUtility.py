@@ -7,7 +7,7 @@ from ecom_uat_automation_pytest.automation.src.configs.MainConfigs import MainCo
 class DBUtility(object):
 
     def __init__(self):
-        creds_helper = CredentialsUtility()
+        creds_helper = CredentialsUtility() # credentials class
         self.creds = creds_helper.get_db_credentials()
 
         self.db_configs = MainConfigs.get_db_configs()
