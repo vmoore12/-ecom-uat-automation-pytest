@@ -3,10 +3,10 @@ stages:
   - regression_FE
 
   variables:
-  CHROME_REMOTE_WEBDRIVER_URL: http://chrome_remote_browser:4444/wd/hub
-  FIREFOX_REMOTE_WEBDRIVER_URL: http://firefox_remote_browser:4444/wd/hub
-  EDGE_REMOTE_WEBDRIVER_URL: http://edge_remote_browser:4444/wd/hub
-  OPERA_REMOTE_WEBDRIVER_URL: http://opera_remote_browser:4444/wd/hub
+    CHROME_REMOTE_WEBDRIVER_URL: http://chrome_remote_browser:4444/wd/hub
+    FIREFOX_REMOTE_WEBDRIVER_URL: http://firefox_remote_browser:4444/wd/hub
+    EDGE_REMOTE_WEBDRIVER_URL: http://edge_remote_browser:4444/wd/hub
+    OPERA_REMOTE_WEBDRIVER_URL: http://opera_remote_browser:4444/wd/hub
 
 
 regression_BE:
@@ -19,9 +19,9 @@ regression_BE:
     
     
   script:
-  - echo "Running tests....  "
-  - env
-  - python3 -m pytest -m beregression -s
+    - echo "Running tests....  "
+    - env
+    - python3 -m pytest -m beregression -s
 
 regression_FE:
   stage: regression_FE
@@ -31,12 +31,12 @@ regression_FE:
     BROWSER: remote_chrome
   services:
     - name: selenium/standalone-chrome:4.7.1-20221208
-    alias: chrome_remote_browser
+      alias: chrome_remote_browser
   script:
     - echo "Running tests FE.... "
     - pip3 install -r ./requirements.txt
     - source ./gl_variables.sh
-    
+
 
 
 
