@@ -102,20 +102,45 @@ def test_update_regular_price():
     assert rs_api['regular_price'] == payload['regular_price'], F'The regular price filter did not update the regular price given to the payload.'
 
 @pytest.mark.tcid63
-def test_update_sales_price():
+def test_update_onsale_price_true():
     woo_api_helper = WooAPIUtility()
-    prod_doa = ProductsDAO()
-    rand_products = prod_doa.get_random_product_from_db()
-    product_id = rand_products[0]['ID']
-    updated_price = str(random.randint(1, 20)) + '.' + str(random.randint(10, 99))
-    payload = {
-        "sale_price": updated_price
-    }
-    
-    rs_api = woo_api_helper.put(f"products/{product_id}", params= payload)
+    # create product with regular price
+    rand_string = generate_random_string()
+    price = generate_random_float()
 
-    assert rs_api['on_sale'] == True,f'The "on_sale" property did not update after updating the "sale_price" property of a product. It should have been updated to {updated_price}.'
-    # assert updated_price < rs_api['price'], f'The onsale price is more than the regular price. On_sale price is set to {rs_api["on_sale"]} and the regular price is {rs_api["price"]}.'
+    payload = {
+        "name": rand_string,
+        "type":"simple",
+        "regular_price":price,
+    }
+
+    rs_api = woo_api_helper.post("products", params=payload,expected_status_code=201)
+    # get and set product sale price
+    new_prod_id = rs_api['id']
+    new_prod_price = rs_api['regular_price']
+    new_sale = round(float(new_prod_price) - 2.99,2)
+    payload2 = {
+        "sale_price": str(new_sale)
+    }
+    updated_prod = woo_api_helper.put(f"products/{new_prod_id}", params=payload2,expected_status_code=200)
+
+    # verify "on-sale" set to "TRUE" 
+    assert updated_prod['on_sale'] == True, f"Updating sale price did not set 'on_sale' to True. It is still set at {updated_prod['on_sale']}."
+    assert rs_api['sale_price']== '',f" The sale_price for the created product is already set proir to applying the update filter. It is set at {rs_api['sale_price']}."
+
+
+
+    # rand_products = prod_doa.get_random_product_from_db()
+    # product_id = rand_products[0]['ID']
+    # updated_price = str(random.randint(1, 20)) + '.' + str(random.randint(10, 99))
+    # payload = {
+    #     "sale_price": updated_price
+    # }
+    
+    # rs_api = woo_api_helper.put(f"products/{product_id}", params= payload)
+
+    # assert rs_api['on_sale'] == True,f'The "on_sale" property did not update after updating the "sale_price" property of a product. It should have been updated to {updated_price}.'
+    # # assert updated_price < rs_api['price'], f'The onsale price is more than the regular price. On_sale price is set to {rs_api["on_sale"]} and the regular price is {rs_api["price"]}.'
 
 @pytest.mark.tcid64
 def test_set_onsale_price_to_false():
@@ -127,22 +152,37 @@ def test_set_onsale_price_to_false():
         "sale_price": " "
     }
 
-    rs_api = woo_api_helper.put(f'products/{product_id}', params= payload)
+    rs_api = woo_api_helper.put(f'products/{product_id}', params= payload, expected_status_code=200)
     assert rs_api['on_sale'] == False,f'The sales price filter did not updated onsale to false. onsale is actually {rs_api["onsale"]}.'
 
 @pytest.mark.tcid65
 def test_update_sale_price():
+
     woo_api_helper = WooAPIUtility()
-    prod_doa = ProductsDAO()
-    onsale_products = prod_doa.get_random_onsale_product_from_db()
-    product_id = onsale_products[0]['product_id']
-    sale_price_item = woo_api_helper.get(f'products/{product_id}')
-    new_sale_price = float(sale_price_item['sale_price']) - 1.99
-    payload ={
-        "sale_price": f'{new_sale_price}'
+        # create product with sale price
+    rand_string = generate_random_string()
+    price = generate_random_float()
+    sale_price = float(price )- 3.99
+    payload = {
+            "name": rand_string,
+            "type":"simple",
+            "regular_price":price,
+            "sale_price": str(sale_price)
+        }
+
+    rs_api = woo_api_helper.post("products", params=payload,expected_status_code=201)
+    # get and update product sale price
+    new_prod_id = rs_api['id']
+    new_prod_price = rs_api['sale_price']
+    #Verify that the sale price was updated
+    assert sale_price == float(new_prod_price),f"sale price was not added correctly. It should be {sale_price} not {new_prod_price}."
+    assert rs_api['on_sale'] == True,"sale price was not set because 'on_sale' = False."
+    assert rs_api['price']>= rs_api['sale_price'],f"Price of the product is not greater than the on sale price which will cause conflict, the price is {rs_api['price']} and the sale price is {rs_api['on_sale']}."
+    # update product sale price
+    updated_prod_price = float(new_prod_price) + 1.00
+    payload2 = {
+        "sale_price": str(updated_prod_price)
     }
-    rs_api = woo_api_helper.put(f'products/{product_id}', params=payload)
-    assert rs_api['id'] == product_id, f'Product with ID {product_id} did not match the requested rs_api{rs_api["id"]}.'
-    assert payload['sale_price'] != sale_price_item['sale_price'],f'Update fitler did not work. sale price should have updated to {new_sale_price}, It has instead{rs_api["sale_price"]}.'
-
-
+    updated_prod = woo_api_helper.put(f"products/{new_prod_id}", params=payload2,expected_status_code=200)
+    assert updated_prod['sale_price'] == str(updated_prod_price),f"The update filter did not work as it should.The sale price should have updated to{updated_prod_price}."
+    
