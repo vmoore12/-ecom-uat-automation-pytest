@@ -1,8 +1,6 @@
 
 import pytest
-
 from selenium import webdriver
-
 
 
 @pytest.fixture(scope="class")
@@ -13,3 +11,9 @@ def init_driver(request):
     yield
 
     request.cls.driver.quit()
+
+
+
+
+
+
