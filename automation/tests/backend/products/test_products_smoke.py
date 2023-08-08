@@ -12,6 +12,31 @@ import logging as logger
 pytestmark = [pytest.mark.beregression, pytest.mark.besmoke, pytest.mark.products_api]
 
 
+@pytest.fixture(scope="function")
+def create_and_delete_product():
+    woo_api_helper = WooAPIUtility()
+    # Create a product with regular price
+    rand_string = generate_random_string()
+    price = generate_random_float()
+    
+    payload = {
+        "name": rand_string,
+        "type": "simple",
+        "regular_price": price,
+    }
+    
+    rs_api = woo_api_helper.post("products", params=payload, expected_status_code=201)
+    
+    yield rs_api
+    
+    # Delete the created product
+    if 'id' in rs_api:
+        product_id = rs_api['id']
+        woo_api_helper.delete(f"products/{product_id}", params={"force": True},expected_status_code=201)
+
+
+
+
 @pytest.mark.tcid24
 @pytest.mark.pioneertcid15
 def test_get_all_products_returns_not_empty():
@@ -102,45 +127,20 @@ def test_update_regular_price():
     assert rs_api['regular_price'] == payload['regular_price'], F'The regular price filter did not update the regular price given to the payload.'
 
 @pytest.mark.tcid63
-def test_update_onsale_price_true():
+def test_update_onsale_price_true(create_and_delete_product):
+    product = create_and_delete_product
     woo_api_helper = WooAPIUtility()
-    # create product with regular price
-    rand_string = generate_random_string()
-    price = generate_random_float()
-
-    payload = {
-        "name": rand_string,
-        "type":"simple",
-        "regular_price":price,
-    }
-
-    rs_api = woo_api_helper.post("products", params=payload,expected_status_code=201)
-    # get and set product sale price
-    new_prod_id = rs_api['id']
-    new_prod_price = rs_api['regular_price']
+    new_prod_id = product['id']
+    new_prod_price = product['regular_price']
     new_sale = round(float(new_prod_price) - 2.99,2)
     payload2 = {
         "sale_price": str(new_sale)
     }
     updated_prod = woo_api_helper.put(f"products/{new_prod_id}", params=payload2,expected_status_code=200)
-
     # verify "on-sale" set to "TRUE" 
     assert updated_prod['on_sale'] == True, f"Updating sale price did not set 'on_sale' to True. It is still set at {updated_prod['on_sale']}."
-    assert rs_api['sale_price']== '',f" The sale_price for the created product is already set proir to applying the update filter. It is set at {rs_api['sale_price']}."
-
-
-
-    # rand_products = prod_doa.get_random_product_from_db()
-    # product_id = rand_products[0]['ID']
-    # updated_price = str(random.randint(1, 20)) + '.' + str(random.randint(10, 99))
-    # payload = {
-    #     "sale_price": updated_price
-    # }
+    assert product['sale_price']== '',f" The sale_price for the created product is already set proir to applying the update filter. It is set at {product['sale_price']}."
     
-    # rs_api = woo_api_helper.put(f"products/{product_id}", params= payload)
-
-    # assert rs_api['on_sale'] == True,f'The "on_sale" property did not update after updating the "sale_price" property of a product. It should have been updated to {updated_price}.'
-    # # assert updated_price < rs_api['price'], f'The onsale price is more than the regular price. On_sale price is set to {rs_api["on_sale"]} and the regular price is {rs_api["price"]}.'
 
 @pytest.mark.tcid64
 def test_set_onsale_price_to_false():
@@ -156,33 +156,32 @@ def test_set_onsale_price_to_false():
     assert rs_api['on_sale'] == False,f'The sales price filter did not updated onsale to false. onsale is actually {rs_api["onsale"]}.'
 
 @pytest.mark.tcid65
-def test_update_sale_price():
-
+def test_update_sale_price(create_and_delete_product):
+    #create a product
+    product = create_and_delete_product
     woo_api_helper = WooAPIUtility()
-        # create product with sale price
-    rand_string = generate_random_string()
-    price = generate_random_float()
-    sale_price = float(price )- 3.99
+    new_prod_id = product['id']
+    new_prod_price = product['regular_price']
+    # Make product on sale
+    new_sale = round(float(new_prod_price) - 2.99,2)
     payload = {
-            "name": rand_string,
-            "type":"simple",
-            "regular_price":price,
-            "sale_price": str(sale_price)
+        "sale_price": str(new_sale)
+    }
+    created_prod = woo_api_helper.put(f"products/{new_prod_id}", params=payload, expected_status_code=200)
+    assert created_prod['sale_price'] == payload['sale_price'],f"The sale prices are not the same. It should be {payload['sale_price']} but was {created_prod['sale_price']}"
+
+    # Updated sale price
+    updated_sale_price = float(new_sale) + .57
+    payload2 = {
+            "sale_price": str(updated_sale_price)
         }
 
-    rs_api = woo_api_helper.post("products", params=payload,expected_status_code=201)
+    rs_api = woo_api_helper.post(f"products/{new_prod_id}", params=payload2, expected_status_code=200)
+
     # get and update product sale price
     new_prod_id = rs_api['id']
     new_prod_price = rs_api['sale_price']
     #Verify that the sale price was updated
-    assert sale_price == float(new_prod_price),f"sale price was not added correctly. It should be {sale_price} not {new_prod_price}."
+    assert updated_sale_price == float(new_prod_price),f" Updated sale price was not added correctly. It should be {updated_sale_price} not {new_prod_price}."
     assert rs_api['on_sale'] == True,"sale price was not set because 'on_sale' = False."
     assert rs_api['price']>= rs_api['sale_price'],f"Price of the product is not greater than the on sale price which will cause conflict, the price is {rs_api['price']} and the sale price is {rs_api['on_sale']}."
-    # update product sale price
-    updated_prod_price = float(new_prod_price) + 1.00
-    payload2 = {
-        "sale_price": str(updated_prod_price)
-    }
-    updated_prod = woo_api_helper.put(f"products/{new_prod_id}", params=payload2,expected_status_code=200)
-    assert updated_prod['sale_price'] == str(updated_prod_price),f"The update filter did not work as it should.The sale price should have updated to{updated_prod_price}."
-    
