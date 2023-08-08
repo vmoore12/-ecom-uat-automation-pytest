@@ -15,7 +15,7 @@ regression_BE:
   before_script:
     - apt-get update && pip install -r ./requirements.txt
     - source ./gl_variables.sh
-    - cd automation/
+    - cd ..
     
     
   script:
