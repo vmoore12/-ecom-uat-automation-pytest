@@ -1,5 +1,5 @@
 import pytest
-from ecom_uat_automation_pytest.automation.src.pages.HomePage import HomePage
+from automation.src.pages.HomePage import HomePage
 # from src.selenium_extended import SeleniumExtended
 
 pytestmark = [pytest.mark.feregression, pytest.mark.fesmoke, pytest.mark.HomePage]

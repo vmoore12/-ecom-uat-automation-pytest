@@ -1,7 +1,8 @@
 
 #credential stuff
 
-/variable.env
+../variable.env
+../ecmpy
 
 *__init__.py
 /archive

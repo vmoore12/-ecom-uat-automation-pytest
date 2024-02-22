@@ -1,7 +1,7 @@
 
 
-from  ecom_uat_automation_pytest.automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
-from  ecom_uat_automation_pytest.automation.src.pages.locators.CartPageLocators import CartPageLocators
+from  automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
+from automation.src.pages.locators.CartPageLocators import CartPageLocators
 
 
 class CartPage(CartPageLocators):

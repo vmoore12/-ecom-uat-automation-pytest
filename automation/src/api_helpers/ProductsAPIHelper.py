@@ -1,5 +1,5 @@
 
-from ecom_uat_automation_pytest.automation.src.utilities.wooAPIUtility import WooAPIUtility
+from automation.src.utilities.wooAPIUtility import WooAPIUtility
 
 
 class ProductsAPIHelper:

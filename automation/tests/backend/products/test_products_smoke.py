@@ -3,10 +3,10 @@ import pytest
 import random
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from ecom_uat_automation_pytest.automation.src.dao.product_dao import ProductsDAO
-from ecom_uat_automation_pytest.automation.src.api_helpers.ProductsAPIHelper import ProductsAPIHelper
-from ecom_uat_automation_pytest.automation.src.utilities.wooAPIUtility import WooAPIUtility
-from ecom_uat_automation_pytest.automation.src.utilities.genericUtilities import generate_random_string, generate_random_float
+from automation.src.dao.product_dao import ProductsDAO
+from automation.src.api_helpers.ProductsAPIHelper import ProductsAPIHelper
+from automation.src.utilities.wooAPIUtility import WooAPIUtility
+from automation.src.utilities.genericUtilities import generate_random_string, generate_random_float
 import logging as logger
 
 pytestmark = [pytest.mark.beregression, pytest.mark.besmoke, pytest.mark.products_api]

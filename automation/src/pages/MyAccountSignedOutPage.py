@@ -1,9 +1,9 @@
 
-from ecom_uat_automation_pytest.automation.src.pages.locators.MyAccountSignedOutPageLocators import MyAccountSignedOutPageLocators
+from automation.src.pages.locators.MyAccountSignedOutPageLocators import MyAccountSignedOutPageLocators
 
-from ecom_uat_automation_pytest.automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
+from automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
 
-from ecom_uat_automation_pytest.automation.src.configs.MainConfigs import MainConfigs
+from automation.src.configs.MainConfigs import MainConfigs
 
 class MyAccountSignedOutPage(MyAccountSignedOutPageLocators):
 

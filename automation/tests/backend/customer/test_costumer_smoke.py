@@ -2,9 +2,9 @@ import logging as logger
 import pytest
 import os
 import json
-from ecom_uat_automation_pytest.automation.src.utilities.genericUtilities import generate_random_email_and_password
-from ecom_uat_automation_pytest.automation.src.utilities.wooAPIUtility import WooAPIUtility
-from ecom_uat_automation_pytest.automation.src.dao.customers_dao import CustomersDAO
+from automation.src.utilities.genericUtilities import generate_random_email_and_password
+from automation.src.utilities.wooAPIUtility import WooAPIUtility
+from automation.src.dao.customers_dao import CustomersDAO
 
 pytestmark = [pytest.mark.beregression, pytest.mark.smoke,pytest.mark.customers_api,] # when we have multiple test cases that are the sme type so we want to run he same marks so we mark them like this. 
 
@@ -151,6 +151,6 @@ def test_get_customers_lists_all_users():
         count += 1 
 
     #verify that all users are in the database are listed
-    assert len(customer_list) == count, f"The number of users in the databse is not accurate. The current count liste i {count}. What should be listed is"\
+    assert len(customer_list) == count, f"The number of users in the database is not accurate. The current count liste i {count}. What should be listed is"\
     f"{len(customer_list)}."
 
