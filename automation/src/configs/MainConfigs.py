@@ -5,7 +5,7 @@ class MainConfigs:
 
     URL_CONFIGS = {
         "dev": {
-            "base_url": "http://localhost:8888/mysite1/"
+            "base_url": "http://localhost:8888/mysite2/"
         },
         "test": {
             "base_url": "http://demostore.supersqa.com/"

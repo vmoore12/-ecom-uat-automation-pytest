@@ -2,6 +2,7 @@
 import pytest
 
 from automation.src.pages.HomePage import HomePage
+from automation.src.pages.Header import Header
 from automation.src.pages.CartPage import CartPage
 from automation.src.pages.CheckoutPage import CheckoutPage
 from automation.src.pages.OrderReceivedPage import OrderReceivedPage
