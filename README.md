@@ -36,7 +36,10 @@ export DB_TABLE_PREFIX_OVERRIDE=`your site's tables prefix`
 
 ## Credentials (these should not be kept in source control like GitHub)
 
-export WOO_KEY=`your woocommerce api key`  
+export WOO_KEY=`your woocommerce api key`    
+
 export WOO_SECRET=`your woocommerce api secret`
-export DB_USER=`your database user`
-export DB_PASSWORD=`your database password`
+
+export DB_USER=`your database user`   
+
+export DB_PASSWORD=`your database password`  
